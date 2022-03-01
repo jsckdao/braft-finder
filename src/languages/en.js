@@ -9,6 +9,7 @@ export default {
   video: 'Video',
   audio: 'Audio',
   embed: 'Embed',
+  iframe: 'Inner Frame',
   caption: 'Media Library',
   dragTip: 'Click Or Drag Files Here',
   dropTip: 'Drop To Upload',

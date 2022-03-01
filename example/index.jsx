@@ -6,7 +6,7 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.braftFinder = new BraftFinder({
-      language: "pl"
+      // language: "pl"
     });
   }
 
@@ -28,7 +28,7 @@ class Demo extends React.Component {
             audio: false,
             video: false
           }}
-          language="ru"
+          // language="ru"
           onSelect={item => console.log("seleced:", item)}
           onBeforeSelect={item => console.log("will select:", item)}
           onDeselect={item => console.log("deselected:", item)}

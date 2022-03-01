@@ -16,7 +16,8 @@ export default class BraftFinderView extends React.Component {
       image: true,
       video: true,
       audio: true,
-      embed: true
+      embed: true,
+      iframe: true,
     }
   }
 
@@ -61,7 +62,7 @@ export default class BraftFinderView extends React.Component {
     const fileAccept = !accepts ? [
       defaultAccepts.image,
       defaultAccepts.video,
-      defaultAccepts.audio
+      defaultAccepts.audio,
     ].join(',') : [
       accepts.image,
       accepts.video,
@@ -74,13 +75,15 @@ export default class BraftFinderView extends React.Component {
         externals.image ? 'IMAGE' :
         externals.audio ? 'AUDIO' :
         externals.video ? 'VIDEO' :
-        externals.embed ? 'EMBED' : ''
+        externals.embed ? 'EMBED' : 
+        externals.iframe ? 'IFRAME' :
+        ''
     }
 
     return {
       fileAccept: fileAccept,
       external: external,
-      allowExternal: externals && (externals.image || externals.audio || externals.video || externals.embed)
+      allowExternal: externals && (externals.image || externals.audio || externals.video || externals.embed || externals.iframe)
     }
 
   }
@@ -140,6 +143,7 @@ export default class BraftFinderView extends React.Component {
                   {externals.audio ? <button type="button" onClick={this.switchExternalType} data-type="AUDIO">{language.audio}</button> : null}
                   {externals.video ? <button type="button" onClick={this.switchExternalType} data-type="VIDEO">{language.video}</button> : null}
                   {externals.embed ? <button type="button" onClick={this.switchExternalType} data-type="EMBED">{language.embed}</button> : null}
+                  {externals.iframe ? <button type="button" onClick={this.switchExternalType} data-type="IFRAME">{language.iframe}</button> : null}
                 </div>
                 <span className="bf-external-tip">{language.externalInputTip}</span>
               </div>
@@ -211,6 +215,15 @@ export default class BraftFinderView extends React.Component {
                 <div className="bf-icon bf-audio" title={item.url}>
                   {progressMarker}
                   <i className="braft-icon-music"></i>
+                  <span>{item.name || item.url}</span>
+                </div>
+              )
+            break
+            case 'IFRAME':
+              previewerComponents = (
+                <div className="bf-icon bf-iframe" title={item.url}>
+                  {progressMarker}
+                  <i className="braft-icon-code"></i>
                   <span>{item.name || item.url}</span>
                 </div>
               )
@@ -405,7 +418,6 @@ export default class BraftFinderView extends React.Component {
   confirmAddExternal = (event) => {
 
     if (event.target.nodeName.toLowerCase() === 'button' || event.keyCode === 13) {
-
       let { url, type } = this.state.external
       url = url.split('|')
       let name = url.length > 1 ? url[0] : this.props.language.unnamedItem

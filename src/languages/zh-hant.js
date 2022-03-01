@@ -9,6 +9,7 @@ export default {
   video: '視頻',
   audio: '音頻',
   embed: '嵌入式媒體',
+  iframe: '內嵌頁',
   caption: '媒體庫',
   dragTip: '點擊或拖動文件至此',
   dropTip: '放開鼠標以上傳',
